@@ -22,8 +22,12 @@ def hour_degrees(hours):
 
 
 def get_clock_angle(iso_time):
-    input_hours = iso_time.split()[0]
-    input_minutes = iso_time.split()[1]
+    time_list = iso_time.split()
+    if len(time_list) < 2:
+        print("invalid input format")
+        return
+    input_hours = time_list[0]
+    input_minutes = time_list[1]
 
     if not validate_hours(input_hours):
         print(input_hours + ":" + input_minutes)
@@ -36,11 +40,11 @@ def get_clock_angle(iso_time):
         return
     diff_degrees = abs(minute_degrees(input_minutes) - hour_degrees(input_hours))
     narrowest_degrees = 360 - diff_degrees if diff_degrees > 180 else diff_degrees
-    return math.floor(narrowest_degrees)
+    degrees = math.floor(narrowest_degrees)
+    print(degrees)
+    return degrees
 
 
 if __name__ == '__main__':
     input_iso_time = input("Enter hour and minute: \n\n")
-    degrees = get_clock_angle(input_iso_time)
-    print(degrees)
-
+    get_clock_angle(input_iso_time)
